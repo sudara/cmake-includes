@@ -30,4 +30,4 @@ That means there could be breakage when you pull.
 
 ## What changed recently tho?
 
-See the CHANGELOG.
+See [CHANGELOG.md](CHANGELOG.md).
