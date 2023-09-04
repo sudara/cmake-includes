@@ -4,6 +4,10 @@
 # You can also forgo ctest entirely and call ./Tests directly from the build dir
 enable_testing()
 
+# Go into detail when there's a CTest failure
+set(CTEST_OUTPUT_ON_FAILURE ON)
+set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+
 # "GLOBS ARE BAD" is brittle and silly dev UX, sorry CMake!
 file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.h")
 
