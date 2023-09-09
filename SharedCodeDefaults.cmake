@@ -1,7 +1,10 @@
 # fast math and better simd support in RELEASE and RELWITHDEBINFO
 if (MSVC)
+    # https://learn.microsoft.com/en-us/cpp/build/reference/fp-specify-floating-point-behavior?view=msvc-170#fast
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:/fp:fast>)
 else ()
+    # See the implications here:
+    # https://stackoverflow.com/q/45685487
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:-Ofast>)
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RelWithDebInfo>:-Ofast>)
 endif ()
