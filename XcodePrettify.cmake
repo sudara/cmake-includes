@@ -19,7 +19,7 @@ foreach (target ${FORMATS} "All")
 
         # Set the default executable that Xcode will open on build
         # Note: you must manually build the AudioPluginHost.xcodeproj in the JUCE subdir
-        if (NOT target STREQUAL "All")
+        if ((NOT target STREQUAL "All") AND (NOT target STREQUAL "Standalone"))
             set_target_properties(${PROJECT_NAME}_${target} PROPERTIES
                 XCODE_SCHEME_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app")
         endif ()
