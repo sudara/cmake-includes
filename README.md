@@ -18,10 +18,10 @@ endif()
 
 # Add pj_cmake_includes from https://github.com/sudara/cmake-includes
 # Change the version in the following URL to update the package (watch the releases of the repository for future updates)
-set(PJ_CMAKE_INCLUDES_VERSION "51546407b32258e3b6b907c24d4b80116b1edec6")
+set(PJ_CMAKE_INCLUDES_VERSION "e4cb35e39b1ee0bb0060105ab1be959cff22d1c8")
 FetchContent_Declare(
-  _pj_cmake_includes
-  URL https://github.com/sudara/cmake-includes/archive/refs/tags/${PJ_CMAKE_INCLUDES_VERSION}.zip)
+  _pamblejuce_cmake
+  URL https://github.com/aminya/cmake-includes/archive/${PJ_CMAKE_INCLUDES_VERSION}.zip)
 FetchContent_MakeAvailable(_pj_cmake_includes)
 include(${_pj_cmake_includes_SOURCE_DIR}/Index.cmake)
 ```
