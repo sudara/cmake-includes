@@ -1,3 +1,11 @@
+## 2024-06-07
+
+* Bump to Catch2 v3.6.0
+
+## 2024-02-06
+
+* Enforce that targeting macOS down to 10.13 via CMAKE_OSX_DEPLOYMENT_TARGET 
+
 ## 2023-09-04
 
 * Added `SharedCodeDefaults.cmake` which handles setting C++20 and fast math on the `SharedCode` Target.

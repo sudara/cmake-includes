@@ -21,7 +21,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
     GIT_PROGRESS TRUE
     GIT_SHALLOW TRUE
-    GIT_TAG v3.4.0)
+    GIT_TAG v3.6.0)
 FetchContent_MakeAvailable(Catch2) # find_package equivalent
 
 # Setup the test executable, again C++20 please
