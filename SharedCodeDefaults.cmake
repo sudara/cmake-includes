@@ -1,5 +1,5 @@
-# fast math and better simd support in RELEASE and RELWITHDEBINFO
 if (MSVC)
+    # fast math and better simd support in RELEASE
     # https://learn.microsoft.com/en-us/cpp/build/reference/fp-specify-floating-point-behavior?view=msvc-170#fast
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:/fp:fast>)
 else ()
@@ -7,6 +7,12 @@ else ()
     # https://stackoverflow.com/q/45685487
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:-Ofast>)
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RelWithDebInfo>:-Ofast>)
+endif ()
+
+# Static runtime please
+# See https://forum.juce.com/t/upgrading-visual-studio-2022-to-v17-10-x-broke-my-plug-in/61839
+if (WIN32)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE INTERNAL "")
 endif ()
 
 # Tell MSVC to properly report what c++ version is being used
