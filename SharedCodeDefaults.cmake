@@ -9,12 +9,6 @@ else ()
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RelWithDebInfo>:-Ofast>)
 endif ()
 
-# Static runtime please
-# See https://forum.juce.com/t/upgrading-visual-studio-2022-to-v17-10-x-broke-my-plug-in/61839
-if (WIN32)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE INTERNAL "")
-endif ()
-
 # Tell MSVC to properly report what c++ version is being used
 if (MSVC)
     target_compile_options(SharedCode INTERFACE /Zc:__cplusplus)
