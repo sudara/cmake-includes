@@ -1,3 +1,7 @@
+## 2024-06-19
+
+* Static link the Visual C++ Redistributable on Windows
+
 ## 2024-06-07
 
 * Bump to Catch2 v3.6.0
