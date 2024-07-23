@@ -1,3 +1,7 @@
+## 2024-07-23
+
+* Bumping VERSION now will reconfigure CMake to pick up new the version
+
 ## 2024-06-19
 
 * Static link the Visual C++ Redistributable on Windows
