@@ -14,7 +14,7 @@ target_include_directories(Benchmarks PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source
 target_compile_definitions(Benchmarks PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},COMPILE_DEFINITIONS>)
 
 # And give tests access to our shared code
-target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2WithMain)
+target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2)
 
 # Make an Xcode Scheme for the test executable so we can run tests in the IDE
 set_target_properties(Benchmarks PROPERTIES XCODE_GENERATE_SCHEME ON)
