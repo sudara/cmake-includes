@@ -4,6 +4,7 @@
 # You can also forgo ctest entirely and call ./Tests directly from the build dir
 enable_testing()
 
+
 # Go into detail when there's a CTest failure
 set(CTEST_OUTPUT_ON_FAILURE ON)
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
@@ -14,6 +15,14 @@ file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/tests
 # Organize the test source in the Tests/ folder in Xcode
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/tests PREFIX "" FILES ${TestFiles})
 
+
+# Workaround for CLion
+# See https://www.jetbrains.com/help/clion/catch-tests-support.html#long-testnames-bug
+# and https://github.com/catchorg/Catch2/issues/2751
+if (DEFINED ENV{CLION_IDE})
+    set(CATCH_CONFIG_CONSOLE_WIDTH 200 CACHE STRING "CLion Workaround" FORCE)
+endif ()
+
 # Use Catch2 v3 on the devel branch
 Include(FetchContent)
 FetchContent_Declare(
@@ -21,7 +30,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
     GIT_PROGRESS TRUE
     GIT_SHALLOW TRUE
-    GIT_TAG v3.7.0)
+    GIT_TAG v3.7.1)
 FetchContent_MakeAvailable(Catch2) # find_package equivalent
 
 # Setup the test executable, again C++20 please
@@ -50,6 +59,7 @@ target_compile_definitions(Tests PUBLIC
 # https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md
 # We have to manually provide the source directory here for now
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
+
 # ${DISCOVERY_MODE} set to "PRE_TEST" for MacOS arm64 / Xcode development
 # fixes error when Xcode attempts to run test executable
 catch_discover_tests(Tests ${DISCOVERY_MODE} "PRE_TEST")
