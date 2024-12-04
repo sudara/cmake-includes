@@ -1,3 +1,6 @@
+option(WITH_ADDRESS_SANITIZER "Enable Address Sanitizer" OFF)
+option(WITH_THREAD_SANITIZER "Enable Thread Sanitizer" OFF)
+
 message(STATUS "Sanitizers: ASan=${WITH_ADDRESS_SANITIZER} TSan=${WITH_THREAD_SANITIZER}")
 if (WITH_ADDRESS_SANITIZER)
     if (MSVC)
