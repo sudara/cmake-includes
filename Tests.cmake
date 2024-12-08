@@ -4,6 +4,7 @@
 # You can also forgo ctest entirely and call ./Tests directly from the build dir
 enable_testing()
 
+include (CPM)
 
 # Go into detail when there's a CTest failure
 set(CTEST_OUTPUT_ON_FAILURE ON)
@@ -24,14 +25,7 @@ if (DEFINED ENV{CLION_IDE})
 endif ()
 
 # Use Catch2 v3 on the devel branch
-Include(FetchContent)
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_PROGRESS TRUE
-    GIT_SHALLOW TRUE
-    GIT_TAG v3.7.1)
-FetchContent_MakeAvailable(Catch2) # find_package equivalent
+CPMAddPackage("gh:catchorg/Catch2@3.7.1")
 
 # Setup the test executable, again C++20 please
 add_executable(Tests ${TestFiles})
@@ -54,6 +48,11 @@ target_compile_definitions(Tests PUBLIC
     JUCE_MODAL_LOOPS_PERMITTED=1 # let us run Message Manager in tests
     RUN_PAMPLEJUCE_TESTS=1 # also run tests in other module .cpp files guarded by RUN_PAMPLEJUCE_TESTS
 )
+
+# Let our tests target know we are running in CI
+if ((DEFINED ENV{CI}))
+    target_compile_definitions(Tests PUBLIC CI=1)
+endif ()
 
 # Load and use the .cmake file provided by Catch2
 # https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md
