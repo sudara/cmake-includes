@@ -9,7 +9,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Support macOS down to High
 if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release") AND NOT (CMAKE_SYSTEM_NAME STREQUAL "iOS"))
     message("Building for Apple Silicon and x86_64")
     set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
-else ()
+elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
     message("Building for Apple x86_64")
     set(CMAKE_OSX_ARCHITECTURES x86_64)
 endif ()
