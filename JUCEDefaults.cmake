@@ -18,3 +18,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     add_compile_options(-fcolor-diagnostics)
 endif ()
+
+# Make windows happy with sccache, requires CMake > 3.25
+# See: https://github.com/mozilla/sccache?tab=readme-ov-file#usage
+set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
+cmake_policy(SET CMP0141 NEW)
