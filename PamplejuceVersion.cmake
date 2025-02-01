@@ -7,6 +7,9 @@
 # This will automate the patch level bumping
 option(PAMPLEJUCE_AUTO_BUMP_PATCH_LEVEL "Auto bump patch level based on commit count" OFF)
 
+# Build system depends on this file, copy it into the build dir
+configure_file(VERSION VERSION COPYONLY)
+
 if (PAMPLEJUCE_AUTO_BUMP_PATCH_LEVEL)
     file(STRINGS "${CMAKE_CURRENT_BINARY_DIR}/VERSION" ORIGINAL_VERSION)
     # Parse a two or three-part version: major.minor or major.minor.patch
