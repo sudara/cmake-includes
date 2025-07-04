@@ -25,7 +25,7 @@ if (DEFINED ENV{CLION_IDE})
 endif ()
 
 # Use Catch2 v3 on the devel branch
-CPMAddPackage("gh:catchorg/Catch2@3.7.1")
+CPMAddPackage("gh:catchorg/Catch2@3.8.1")
 
 # Setup the test executable, again C++20 please
 add_executable(Tests ${TestFiles})
