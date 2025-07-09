@@ -2,21 +2,21 @@
 set_target_properties(SharedCode PROPERTIES FOLDER "")
 
 # Separate SourceFiles into two groups:
-# 1. Files under ${CMAKE_CURRENT_SOURCE_DIR}/source
-# 2. Files outside ${CMAKE_CURRENT_SOURCE_DIR}/source
+# 1. Files under ${CMAKE_CURRENT_SOURCE_DIR}/src
+# 2. Files outside ${CMAKE_CURRENT_SOURCE_DIR}/src
 set(SourceFilesInTree "")
 set(SourceFilesOutOfTree "")
 foreach(file ${SourceFiles})
-    if(file MATCHES "^${CMAKE_CURRENT_SOURCE_DIR}/source")
+    if(file MATCHES "^${CMAKE_CURRENT_SOURCE_DIR}/src")
         list(APPEND SourceFilesInTree ${file})
     else()
         list(APPEND SourceFilesOutOfTree ${file})
     endif()
 endforeach()
 
-# Apply source_group only to files under ${CMAKE_CURRENT_SOURCE_DIR}/source
+# Apply source_group only to files under ${CMAKE_CURRENT_SOURCE_DIR}/src
 if(SourceFilesInTree)
-    source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX "" FILES ${SourceFilesInTree})
+    source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src PREFIX "" FILES ${SourceFilesInTree})
 endif()
 
 # Optionally, create a separate group for files outside the source directory
