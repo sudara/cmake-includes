@@ -2,6 +2,7 @@ if (MSVC)
     # fast math and better simd support in RELEASE
     # https://learn.microsoft.com/en-us/cpp/build/reference/fp-specify-floating-point-behavior?view=msvc-170#fast
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:/fp:fast>)
+    target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:/Ox>)
 else ()
     # See the implications here:
     # https://stackoverflow.com/q/45685487
