@@ -16,7 +16,9 @@ endif ()
 # instruct MSVC to discard embed info. You can also set this to Embedded instead of None (/Z7)
 # See: https://forum.juce.com/t/fr-improve-the-performance-of-building-juceaide-by-forwarding-compiler-launcher-cmake-args/61543/26
 cmake_policy(SET CMP0141 NEW)
-set_property(GLOBAL PROPERTY DEBUG_INFORMATION_FORMAT "None" CONFIGURATIONS Release)
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT None CACHE STRING "" FORCE)
+endif ()
 
 # Color our warnings and errors
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
