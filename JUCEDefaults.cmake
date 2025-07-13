@@ -13,10 +13,10 @@ if (WIN32)
 endif ()
 
 # Force JUCE to work with sccache
-# instruct MSVC to embed debug info (/Z7) instead of emitting a .pdb
+# instruct MSVC to discard embed info. You can also set this to Embedded instead of None (/Z7)
 # See: https://forum.juce.com/t/fr-improve-the-performance-of-building-juceaide-by-forwarding-compiler-launcher-cmake-args/61543/26
 cmake_policy(SET CMP0141 NEW)
-set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded CACHE STRING "" FORCE)
+set_property(GLOBAL PROPERTY DEBUG_INFORMATION_FORMAT "None" CONFIGURATIONS Release)
 
 # Color our warnings and errors
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
