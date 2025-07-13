@@ -17,7 +17,7 @@ endif ()
 # See: https://forum.juce.com/t/fr-improve-the-performance-of-building-juceaide-by-forwarding-compiler-launcher-cmake-args/61543/26
 cmake_policy(SET CMP0141 NEW)
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT None CACHE STRING "" FORCE)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "" CACHE STRING "" FORCE)
 endif ()
 
 # Color our warnings and errors
