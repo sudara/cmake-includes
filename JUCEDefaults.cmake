@@ -16,8 +16,9 @@ endif ()
 # instruct MSVC to discard embed info. You can also set this to Embedded instead of None (/Z7)
 # See: https://forum.juce.com/t/fr-improve-the-performance-of-building-juceaide-by-forwarding-compiler-launcher-cmake-args/61543/26
 cmake_policy(SET CMP0141 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0141 NEW CACHE STRING "" FORCE)
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "" CACHE STRING "" FORCE)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded CACHE STRING "" FORCE)
 endif ()
 
 # Color our warnings and errors
