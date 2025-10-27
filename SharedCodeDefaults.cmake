@@ -7,7 +7,8 @@ else ()
     # See the implications here:
     # https://stackoverflow.com/q/45685487
     target_compile_options(SharedCode INTERFACE $<$<CONFIG:RELEASE>:-Ofast>)
-    target_compile_options(SharedCode INTERFACE $<$<CONFIG:RelWithDebInfo>:-Ofast>)
+    target_compile_options(SharedCode INTERFACE $<$<CONFIG:RelWithDebInfo>:-O3>)
+
 endif ()
 
 # Tell MSVC to properly report what c++ version is being used
