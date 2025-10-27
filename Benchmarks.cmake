@@ -4,11 +4,16 @@ file(GLOB_RECURSE BenchmarkFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/benchmarks PREFIX "" FILES ${BenchmarkFiles})
 
 add_executable(Benchmarks ${BenchmarkFiles})
-target_compile_features(Benchmarks PRIVATE cxx_std_20)
-catch_discover_tests(Benchmarks)
+target_compile_features(Benchmarks PRIVATE cxx_std_23)
+# Note: catch_discover_tests disabled for benchmarks - run manually with ./build/Benchmarks_artefacts/Benchmarks
+# catch_discover_tests(Benchmarks)
 
 # Our benchmark executable also wants to know about our plugin code...
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/source")
 target_include_directories(Benchmarks PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)
+elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_include_directories(Benchmarks PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+endif()
 
 # Copy over compile definitions from our plugin target so it has all the JUCEy goodness
 target_compile_definitions(Benchmarks PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},COMPILE_DEFINITIONS>)
