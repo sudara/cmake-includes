@@ -1,6 +1,6 @@
 # When present, use Intel IPP for performance on Windows
 if (WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
-    set (IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2022.2.0.575")
+    set (IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2022.3.0.387")
     if (IS_DIRECTORY "${IPP_ROOT}")
         set(IPP_INC "${IPP_ROOT}/build/native/include/ipp")
         set(IPP_LIB "${IPP_ROOT}/build/native/win-x64/")
