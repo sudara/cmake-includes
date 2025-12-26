@@ -1,10 +1,23 @@
+## 2025-12-26
+
+* PAMPLEJUCE_IPP will now be true on Linux and macOS Intel
+* Bump Intel IPP to 2022.3.0.387
+* Bump CPM to 0.42.0
+
+## 2025-06-17
+
+*  Bump to C++23
+
+## 2025-05-06
+
+* Bump Catch2 to 3.8.1
 
 ## 2024-08-12
 
 * Bump to Catch2 v3.7.0
 * No longer try to build universal binaries on iOS.
 * Fix issue with Benchmark globs not pulling in .h files.
-* Instead of linking like so `target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2WithMain)` we now link like so `target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2)`. This allows us to run JUCE's `ScopedJuceInitialiser_GUI` inside Catch2 for the duration of the tests, see Pamplejuce for the implementation. 
+* Instead of linking like so `target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2WithMain)` we now link like so `target_link_libraries(Benchmarks PRIVATE SharedCode Catch2::Catch2)`. This allows us to run JUCE's `ScopedJuceInitialiser_GUI` inside Catch2 for the duration of the tests, see Pamplejuce for the implementation.
 
 ## 2024-07-23
 
@@ -20,7 +33,7 @@
 
 ## 2024-02-06
 
-* Enforce that targeting macOS down to 10.13 via CMAKE_OSX_DEPLOYMENT_TARGET 
+* Enforce that targeting macOS down to 10.13 via CMAKE_OSX_DEPLOYMENT_TARGET
 
 ## 2023-09-04
 
