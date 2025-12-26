@@ -1,15 +1,25 @@
-# When present, use Intel IPP for performance on Windows
-if (WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
-    set (IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2022.3.0.387")
+# When present, use Intel IPP for performance on Windows and Linux
+if(WIN32)
+    set(IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2022.3.0.387")
+    set(IPP_INC "${IPP_ROOT}/build/native/include/ipp")
+    set(IPP_LIB "${IPP_ROOT}/build/native/win-x64/")
+    set(IPP_LIBS ippsmt ippcoremt ippimt ippcvmt ippvmmt)
+elseif(UNIX AND NOT APPLE)
+    # Installed via intel-oneapi-ipp-devel package
+    set(IPP_ROOT "/opt/intel/oneapi/ipp/latest")
+    set(IPP_INC "${IPP_ROOT}/include")
+    set(IPP_LIB "${IPP_ROOT}/lib")
+    set(IPP_LIBS ipps ippcore ippi ippcv ippvm)
+endif()
+
+if (DEFINED IPP_ROOT)
     if (IS_DIRECTORY "${IPP_ROOT}")
-        set(IPP_INC "${IPP_ROOT}/build/native/include/ipp")
-        set(IPP_LIB "${IPP_ROOT}/build/native/win-x64/")
         target_include_directories(SharedCode INTERFACE "${IPP_INC}")
         target_link_directories(SharedCode INTERFACE "${IPP_LIB}")
-        target_link_libraries(SharedCode INTERFACE ippsmt ippcoremt ippimt ippcvmt ippvmmt)
-        message("INTEL IPP FOUND")
+        target_link_libraries(SharedCode INTERFACE ${IPP_LIBS})
+        message(STATUS "INTEL IPP FOUND at ${IPP_ROOT}")
         target_compile_definitions(SharedCode INTERFACE PAMPLEJUCE_IPP=1)
     else ()
-        message("INTEL IPP NOT LOADED: IPP_ROOT *NOT* FOUND")
+        message(STATUS "INTEL IPP NOT LOADED: ${IPP_ROOT} was not found")
     endif ()
 endif ()
