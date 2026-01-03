@@ -5,7 +5,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/benchmarks PREFIX "" FILES ${Bench
 
 add_executable(Benchmarks ${BenchmarkFiles})
 target_compile_features(Benchmarks PRIVATE cxx_std_20)
-catch_discover_tests(Benchmarks)
+catch_discover_tests(Benchmarks DISCOVERY_MODE "PRE_TEST")
 
 # Our benchmark executable also wants to know about our plugin code...
 target_include_directories(Benchmarks PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)

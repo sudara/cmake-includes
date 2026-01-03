@@ -59,6 +59,6 @@ endif ()
 # We have to manually provide the source directory here for now
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 
-# ${DISCOVERY_MODE} set to "PRE_TEST" for MacOS arm64 / Xcode development
+# DISCOVERY_MODE set to "PRE_TEST" for MacOS arm64 / Xcode development
 # fixes error when Xcode attempts to run test executable
-catch_discover_tests(Tests ${DISCOVERY_MODE} "PRE_TEST")
+catch_discover_tests(Tests DISCOVERY_MODE "PRE_TEST")
