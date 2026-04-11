@@ -58,6 +58,13 @@ target_compile_definitions(Tests PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},COMPI
 # And give tests access to our shared code
 target_link_libraries(Tests PRIVATE SharedCode Catch2::Catch2)
 
+# Windows: Tests link juce_gui_extra + WebBrowser like the plugin; match WebView2 linkage from juce_add_plugin.
+if(WIN32)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/Build/CMake")
+    find_package(WebView2 REQUIRED)
+    target_link_libraries(Tests PRIVATE juce::juce_webview2)
+endif()
+
 # Make an Xcode Scheme for the test executable so we can run tests in the IDE
 set_target_properties(Tests PROPERTIES XCODE_GENERATE_SCHEME ON)
 

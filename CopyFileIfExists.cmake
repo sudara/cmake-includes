@@ -1,0 +1,15 @@
+if(NOT DEFINED src)
+    message(FATAL_ERROR "CopyFileIfExists.cmake requires -Dsrc=<path>")
+endif()
+
+if(NOT DEFINED dst)
+    message(FATAL_ERROR "CopyFileIfExists.cmake requires -Ddst=<dir>")
+endif()
+
+if(EXISTS "${src}")
+    get_filename_component(name "${src}" NAME)
+    file(MAKE_DIRECTORY "${dst}")
+    file(COPY_FILE "${src}" "${dst}/${name}" ONLY_IF_DIFFERENT)
+else()
+    message(STATUS "Optional helper not built yet, skipping copy: ${src}")
+endif()

@@ -32,6 +32,12 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 target_link_libraries(Benchmarks PRIVATE ${_WVG_BENCH_LIBS})
 
+if(WIN32)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/Build/CMake")
+    find_package(WebView2 REQUIRED)
+    target_link_libraries(Benchmarks PRIVATE juce::juce_webview2)
+endif()
+
 # Make an Xcode Scheme for the test executable so we can run tests in the IDE
 set_target_properties(Benchmarks PROPERTIES XCODE_GENERATE_SCHEME ON)
 
