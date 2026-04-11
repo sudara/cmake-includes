@@ -31,8 +31,23 @@ CPMAddPackage("gh:catchorg/Catch2@3.8.1")
 add_executable(Tests ${TestFiles})
 target_compile_features(Tests PRIVATE cxx_std_20)
 
+# Linux: WebBrowser + CURL need extra deps (match juce_add_plugin NEEDS_* flags)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    find_package(PkgConfig REQUIRED)
+    find_package(CURL REQUIRED)
+    pkg_check_modules(WVG_TEST_WEB IMPORTED_TARGET webkit2gtk-4.1 gtk+-x11-3.0)
+    target_link_libraries(Tests PRIVATE PkgConfig::WVG_TEST_WEB CURL::libcurl)
+    target_sources(Tests PRIVATE
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_artefacts/JuceLibraryCode/$<CONFIG>/juce_LinuxSubprocessHelperBinaryData.cpp>")
+endif()
+
 # Our test executable also wants to know about our plugin code...
-target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_include_directories(Tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/source
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_artefacts/JuceLibraryCode/$<CONFIG>>")
+
+add_dependencies(Tests "${PROJECT_NAME}")
 
 # Copy over compile definitions from our plugin target so it has all the JUCEy goodness
 target_compile_definitions(Tests PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},COMPILE_DEFINITIONS>)
