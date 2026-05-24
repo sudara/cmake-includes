@@ -31,6 +31,10 @@ elseif(UNIX)
     # Installed via intel-oneapi-ipp-devel package
     set(IPP_ROOT "/opt/intel/oneapi/ipp/latest")
     set(IPP_INC "${IPP_ROOT}/include")
+    # IPP 2026+ nests headers under include/ipp/
+    if(IS_DIRECTORY "${IPP_ROOT}/include/ipp")
+        list(APPEND IPP_INC "${IPP_ROOT}/include/ipp")
+    endif()
     set(IPP_LIB "${IPP_ROOT}/lib")
     set(IPP_LIBS ipps ippcore ippi ippcv ippvm)
 endif()
@@ -38,7 +42,7 @@ endif()
 if (DEFINED IPP_ROOT)
     if (IS_DIRECTORY "${IPP_ROOT}")
         message(STATUS "INTEL IPP FOUND at ${IPP_ROOT}")
-        target_include_directories(SharedCode INTERFACE "${IPP_INC}")
+        target_include_directories(SharedCode INTERFACE ${IPP_INC})
 
         if (IPP_MACOS)
             # For universal builds, use -Xarch_x86_64 to apply IPP flags only to x86_64 slice
