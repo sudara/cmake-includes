@@ -1,6 +1,6 @@
 # When present, use Intel IPP for performance on Windows, Linux, and macOS (x86_64 only)
 if(WIN32)
-    set(IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2022.3.0.387")
+    set(IPP_ROOT "$ENV{USERPROFILE}/.nuget/packages/intelipp.static.win-x64/2026.0.0.712")
     set(IPP_INC "${IPP_ROOT}/build/native/include/ipp")
     set(IPP_LIB "${IPP_ROOT}/build/native/win-x64/")
     set(IPP_LIBS ippsmt ippcoremt ippimt ippcvmt ippvmmt)
