@@ -1,8 +1,28 @@
 # No, we don't want our source buried in extra nested folders
 set_target_properties(SharedCode PROPERTIES FOLDER "")
 
-# The Xcode source tree should uhhh, still look like the source tree, yo
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX "" FILES ${SourceFiles})
+# Separate SourceFiles into two groups:
+# 1. Files under ${CMAKE_CURRENT_SOURCE_DIR}/source
+# 2. Files outside ${CMAKE_CURRENT_SOURCE_DIR}/source
+set(SourceFilesInTree "")
+set(SourceFilesOutOfTree "")
+foreach(file ${SourceFiles})
+    if(file MATCHES "^${CMAKE_CURRENT_SOURCE_DIR}/source")
+        list(APPEND SourceFilesInTree ${file})
+    else()
+        list(APPEND SourceFilesOutOfTree ${file})
+    endif()
+endforeach()
+
+# Apply source_group only to files under ${CMAKE_CURRENT_SOURCE_DIR}/source
+if(SourceFilesInTree)
+    source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX "" FILES ${SourceFilesInTree})
+endif()
+
+# Optionally, create a separate group for files outside the source directory
+if(SourceFilesOutOfTree)
+    source_group("External Files" FILES ${SourceFilesOutOfTree})
+endif()
 
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
 # Xcode scheme generation is turned off globally to limit noise from other targets
