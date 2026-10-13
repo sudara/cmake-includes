@@ -1,3 +1,9 @@
+## 2026-10-10
+
+* Add PamplejuceIOS.cmake helpers for JUCE host-tool builds, iOS plugin options, AUv3 bundle IDs, archive symbols, and Swift libraries.
+* Use PAMPLEJUCE_IOS_DEPLOYMENT_TARGET (default 15.0) for iOS builds instead of the macOS deployment target.
+* Skip console test and benchmark targets on iOS.
+
 ## 2026-08-16
 
 * Add PamplejuceFunctions.cmake: one include() that defines all pamplejuce_* functions and turns off their legacy include-time behavior

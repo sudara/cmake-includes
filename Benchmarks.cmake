@@ -4,6 +4,11 @@ function(pamplejuce_add_benchmarks)
     set(oneValueArgs TARGET DIRECTORY PLUGIN_TARGET SHARED_CODE SOURCE_INCLUDE_DIR)
     cmake_parse_arguments(PAMP_BENCH "" "${oneValueArgs}" "" ${ARGN})
 
+    # iOS does not support console benchmark runners.
+    if (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+        return()
+    endif ()
+
     if (NOT PAMP_BENCH_TARGET)
         set(PAMP_BENCH_TARGET Benchmarks)
     endif ()

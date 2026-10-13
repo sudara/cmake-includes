@@ -34,6 +34,11 @@ function(pamplejuce_add_tests)
     set(oneValueArgs TARGET DIRECTORY PLUGIN_TARGET SHARED_CODE SOURCE_INCLUDE_DIR)
     cmake_parse_arguments(PAMP_TESTS "" "${oneValueArgs}" "" ${ARGN})
 
+    # iOS does not support console test runners.
+    if (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+        return()
+    endif ()
+
     if (NOT PAMP_TESTS_TARGET)
         set(PAMP_TESTS_TARGET Tests)
     endif ()

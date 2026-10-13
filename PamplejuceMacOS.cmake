@@ -2,7 +2,13 @@
 # This must be set before the project() call
 # see: https://cmake.org/cmake/help/latest/variable/CMAKE_OSX_DEPLOYMENT_TARGET.html
 # FORCE must be set, see https://stackoverflow.com/a/44340246
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Support macOS down to Mojave" FORCE)
+# Before project(), iOS must be selected via CMAKE_SYSTEM_NAME rather than only a toolchain file.
+if (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    set(PAMPLEJUCE_IOS_DEPLOYMENT_TARGET "15.0" CACHE STRING "Minimum iOS version")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "${PAMPLEJUCE_IOS_DEPLOYMENT_TARGET}" CACHE STRING "Minimum iOS version" FORCE)
+else ()
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Support macOS down to Mojave" FORCE)
+endif ()
 
 # Building universal binaries on macOS increases build time
 # This is set on CI but not during local dev
