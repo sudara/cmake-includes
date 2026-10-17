@@ -1,3 +1,7 @@
+## 2026-10-17
+
+* Bump Intel IPP on Windows to 2026.1.0.761
+
 ## 2026-10-10
 
 * Add PamplejuceIOS.cmake helpers for JUCE host-tool builds, iOS plugin options, AUv3 bundle IDs, archive symbols, and Swift libraries.
