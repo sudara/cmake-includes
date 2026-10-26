@@ -1,8 +1,8 @@
 ## 2026-10-26
 
-* Fast math now applies to Release builds on macOS and Linux. JUCE appends -O3, which silently undid -Ofast, so we use -ffast-math instead
-* Fast math keeps NaN and infinity checks working (-fno-finite-math-only, also on clang-cl)
-* RelWithDebInfo gets the same fast math as Release on every platform, plus -O3 on clang and gcc
+* Fix fast math on macOS and Linux Release builds (JUCE's -O3 was undoing -Ofast, now -ffast-math)
+* Keep NaN and infinity checks working under fast math (-fno-finite-math-only)
+* RelWithDebInfo gets Release's fast math everywhere, plus -O3 on clang and gcc
 
 ## 2026-10-17
 
@@ -21,15 +21,48 @@
 * Rename the internal flag to _PAMPLEJUCE_USE_FUNCTIONS (PAMPLEJUCE_MULTI_PRODUCT is gone: include PamplejuceFunctions.cmake instead of setting a flag)
 * Rename function argument prefixes from PJ_ to PAMP_ (internal only, no API change)
 
+## 2026-07-18
+
+* Wrap helpers in pamplejuce_* functions for multi-product projects
+
+## 2026-06-20
+
+* Add WITH_REALTIME_SANITIZER option (RTSan)
+* Error when include(Sanitizers) comes before project()
+
+## 2026-05-25
+
+* Bump Windows IPP to 2026.0.0.712
+* Statically link IPP on Linux so end users don't need it installed
+* Fix IPP include path for 2026+ (headers moved to include/ipp/)
+
+## 2026-03-15
+
+* Log CMake version, build type, compiler, system and generator at configure time
+
+## 2026-01-03
+
+* Bump minimum macOS target to 10.14 (needed by melatonin_perfetto)
+
 ## 2025-12-26
 
 * PAMPLEJUCE_IPP will now be true on Linux and macOS Intel
 * Bump Intel IPP to 2022.3.0.387
 * Bump CPM to 0.42.0
 
+## 2025-07-15
+
+* Install Windows IPP via nuget
+* Add /Ox to Windows Release builds
+* Embed MSVC debug info (CMP0141) so sccache works
+
 ## 2025-06-17
 
 *  Bump to C++23
+
+## 2025-06-08
+
+* Benchmarks target only compiles benchmarks/Catch2Main.cpp (plus headers)
 
 ## 2025-05-06
 
