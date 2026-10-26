@@ -6,16 +6,26 @@ function(pamplejuce_shared_code_defaults)
         set(PAMP_SCD_TARGET SharedCode)
     endif ()
 
+    set(optimized_config "$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>")
+
     if (MSVC)
-        # fast math and better simd support in RELEASE
+        # fast math and better simd support
         # https://learn.microsoft.com/en-us/cpp/build/reference/fp-specify-floating-point-behavior?view=msvc-170#fast
-        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<$<CONFIG:RELEASE>:/fp:fast>)
+        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<${optimized_config}:/fp:fast>)
         target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<$<CONFIG:RELEASE>:/Ox>)
+
+        if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+            target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<${optimized_config}:/clang:-fno-finite-math-only>)
+        endif ()
     else ()
         # See the implications here:
         # https://stackoverflow.com/q/45685487
-        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<$<CONFIG:RELEASE>:-Ofast>)
-        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<$<CONFIG:RelWithDebInfo>:-Ofast>)
+        # Not -Ofast: JUCE appends -O3 for Release, which silently turns -Ofast's fast math back off
+        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<${optimized_config}:-ffast-math>)
+        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<${optimized_config}:-fno-finite-math-only>)
+
+        # Match Release so profiling is representative
+        target_compile_options(${PAMP_SCD_TARGET} INTERFACE $<$<CONFIG:RelWithDebInfo>:-O3>)
     endif ()
 
     # Tell MSVC to properly report what c++ version is being used

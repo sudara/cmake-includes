@@ -1,3 +1,9 @@
+## 2026-10-26
+
+* Fast math now applies to Release builds on macOS and Linux. JUCE appends -O3, which silently undid -Ofast, so we use -ffast-math instead
+* Fast math keeps NaN and infinity checks working (-fno-finite-math-only, also on clang-cl)
+* RelWithDebInfo gets the same fast math as Release on every platform, plus -O3 on clang and gcc
+
 ## 2026-10-17
 
 * Bump Intel IPP on Windows to 2026.1.0.761
